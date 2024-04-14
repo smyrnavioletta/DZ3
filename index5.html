@@ -98,10 +98,18 @@
             let p = document.createElement("p");
             p.innerText = text;
 
+            let removeBtn = document.createElement('button');
+            removeBtn.textContent = 'X';
+            removeBtn.addEventListener('click', removeTask);
+
             div.append(input);
             div.append(p);
+            div.append(removeBtn);
 
             return div;
+        }
+        function removeTask() {
+            if(confirm('Remove?')) this.parentElement.remove();
         }
 
         function changeTaskState() {
