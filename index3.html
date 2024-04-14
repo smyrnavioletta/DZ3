@@ -48,7 +48,15 @@
         let divBtn = document.querySelector("#div-btn");
 
         addBtn.addEventListener("click", function () {
-            alert(Number(input1.value) + Number(input2.value));
+            for(const add of addBtn){
+                if (input1 != 0){
+                     alert(Number(input1.value) + Number(input2.value));
+                }
+                else{
+                    input1.style.border  = "1px solid red";
+                }
+            }
+           
         });
 
         remBtn.addEventListener("click", function () {
