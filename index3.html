@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task 03</title>
 
     <style>
-        .error {
-            color: red;
-            display: none;
-        }
+      .error {
+        color: red;
+        display: none;
+      }
+      .error-border {
+        border: 1px solid red;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    Операнд 1: <input id="input1" type="text"> <br />
+  <body>
+    Операнд 1: <input id="input1" type="text" /> <br />
     <span id="input1Error" class="error">Введіть значення</span> <br />
-    
-    Операнд 2: <input id="input2" type="text"> <br />
+
+    Операнд 2: <input id="input2" type="text" /> <br />
     <span id="input2Error" class="error">Введіть значення</span> <br />
 
     <button id="add-btn">+</button>
@@ -29,7 +31,7 @@
     <button id="reset-btn">reset</button>
 
     <script>
-        /*
+      /*
         Завдання:
         Внесіть зміни до цього сценарію.
         Додайте обробник на клік по кнопці reset. Під час натискання на значення введені в поля введення "Операнд 1"
@@ -39,38 +41,68 @@
         Для поля введення input1 за відсутності значення зробіть видимим span #input1Error, для поля введення
         input2 зробіть, якщо помилка, #input2Error видимим.
         */
-        let input1 = document.querySelector("#input1");
-        let input3 = document.querySelector("#input2");
+      let input1 = document.querySelector("#input1");
+      let input2 = document.querySelector("#input2");
 
-        let addBtn = document.querySelector("#add-btn");
-        let remBtn = document.querySelector("#rem-btn");
-        let mulBtn = document.querySelector("#mul-btn");
-        let divBtn = document.querySelector("#div-btn");
+      let addBtn = document.querySelector("#add-btn");
+      let remBtn = document.querySelector("#rem-btn");
+      let mulBtn = document.querySelector("#mul-btn");
+      let divBtn = document.querySelector("#div-btn");
+      let resBtn = document.querySelector("#reset-btn");
 
-        addBtn.addEventListener("click", function () {
-            for(const add of addBtn){
-                if (input1 != 0){
-                     alert(Number(input1.value) + Number(input2.value));
-                }
-                else{
-                    input1.style.border  = "1px solid red";
-                }
-            }
-           
-        });
+      addBtn.addEventListener("click", function () {
+        resetError();
+        if (validate()) alert(Number(input1.value) + Number(input2.value));
+      });
 
-        remBtn.addEventListener("click", function () {
-            alert(input1.value - input2.value);
-        });
+      remBtn.addEventListener("click", function () {
+        resetError();
+        if (validate()) alert(input1.value - input2.value);
+      });
 
-        mulBtn.addEventListener("click", function () {
-            alert(input1.value * input2.value);
-        });
+      mulBtn.addEventListener("click", function () {
+        resetError();
+        if (validate()) alert(input1.value * input2.value);
+      });
 
-        divBtn.addEventListener("click", function () {
-            alert(input1.value / input2.value);
-        });
+      divBtn.addEventListener("click", function () {
+        resetError();
+        if (validate()) alert(input1.value / input2.value);
+      });
+      resBtn.addEventListener("click", function () {
+        resetError();
+        if (validate()) input1.value = input2.value = 0;
+      });
+
+      function validate() {
+        let valid = true;
+
+        if (!input1.value) {
+          showError(input1);
+          valid = false;
+        }
+        if (!input2.value) {
+          showError(input2);
+          valid = false;
+        }
+        return valid;
+      }
+
+      function showError(elem) {
+        elem.classList.add("error-border");
+        let spanId = elem.id + "Error";
+        document.querySelector(`#${spanId}`).style.display = "block";
+      }
+
+      showError(input1);
+      showError(input2);
+
+      function resetError() {
+        let spanElements = document.querySelectorAll(".error");
+        let inputs = document.querySelectorAll(".error-border");
+        spanElements.forEach((span) => (span.style.display = "none"));
+        inputs.forEach((input) => input.classList.remove("error-border"));
+      }
     </script>
-</body>
-
+  </body>
 </html>
